@@ -1,0 +1,53 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+
+   <TextView
+       android:id="@+id/headwelcome"
+       style="@style/Header"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="@string/headwelcome" />
+
+   <Button
+       android:id="@+id/btncreate"
+       style="@style/ButtonL"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center_horizontal"
+       android:onClick="onClick"
+       android:text="@string/btncreate" />
+
+   <Button
+       android:id="@+id/btnviewhistory"
+       style="@style/ButtonL"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center_horizontal"
+       android:layout_marginTop="30dp"
+       android:onClick="onClick"
+       android:text="@string/btnviewhistory" />
+
+   <!-- To print raw error message for dev purpose -->
+   <TextView
+       android:id="@+id/errordev"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginBottom="55dp"
+       android:textAppearance="?android:attr/textAppearanceLarge" />
+
+   <Button
+       android:id="@+id/btnexit"
+       style="@style/ButtonL"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center_horizontal"
+       android:onClick="onClick"
+       android:text="@string/btnexit" />
+    
+</LinearLayout>

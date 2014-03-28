@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".CreateTripActivity" >
+
+<LinearLayout
+    style="@style/LayoutL"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:orientation="vertical"
+    tools:context=".CreateTripActivity" >
+
+	<TextView
+	    android:id="@+id/headcreatetrip"
+	    style="@style/Header"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_horizontal"
+	    android:text="@string/headcreatetrip" />
+	
+	<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:orientation="horizontal">
+    
+		<TextView
+		    android:id="@+id/labeltripname"
+		    style="@style/MenuLabel"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:minWidth="150dp"
+		    android:text="@string/labeltripname" />
+		
+		<EditText
+		    android:id="@+id/edittripname"
+		    style="@style/Menubox"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:ems="10" />
+
+	</LinearLayout>
+	
+	<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:layout_marginTop="20dp"
+    android:orientation="horizontal">
+		
+		<TextView
+		    android:id="@+id/labeldestination"
+		    style="@style/MenuLabel"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:minWidth="150dp"
+		    android:text="@string/labeldestination" />
+		
+		<EditText
+		    android:id="@+id/editdestname"
+		    style="@style/Menubox"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:ems="10" />
+	</LinearLayout>
+	
+	<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+	android:layout_marginTop="20dp" 
+    android:orientation="horizontal">
+		<TextView
+		    android:id="@+id/labelcreator"
+		    style="@style/MenuLabel"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:minWidth="150dp"
+		    android:text="@string/labelcreator" />
+		
+		<EditText
+		    android:id="@+id/editcreatorname"
+		    style="@style/Menubox"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:ems="10" />
+	</LinearLayout>
+	
+	<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+	android:layout_marginTop="20dp" 
+    android:orientation="horizontal">
+		<TextView
+		    android:id="@+id/labeldate"
+		    style="@style/MenuLabel"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:minWidth="150dp"
+		    android:text="@string/labeldate" />
+	 
+		<Button
+		    android:id="@+id/btndate"
+		    style="?android:attr/buttonStyleSmall"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:onClick="showDatePickerDialog"
+		    android:text="@string/btndate"
+		    android:textSize="12sp" />
+	</LinearLayout>
+	
+	<LinearLayout
+	    android:id="@+id/friendlayout"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_horizontal"
+	    android:layout_marginTop="20dp"
+	    android:background="#CCefe6d1"
+	    android:orientation="vertical" >
+
+	    <!-- Persons HEADING -->    
+	    <LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" 
+		    android:layout_marginTop="10dp"
+		    android:orientation="horizontal">
+
+	        <Button
+	            android:id="@+id/btnadd"
+	            style="?android:attr/buttonStyleSmall"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="5dp"
+	            android:onClick="onClick"
+	            android:padding="0dp"
+	            android:text="@string/btnadd"
+	            android:textSize="15sp" />
+	        
+	        <Button
+	            android:id="@+id/btndelete"
+	            style="?android:attr/buttonStyleSmall"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="3dp"
+	            android:onClick="onClick"
+	            android:padding="0dp"
+	            android:text="@string/btndelete"
+	            android:textSize="15sp" />
+		        
+		    <TextView
+		        android:id="@+id/labelname"
+		        style="@style/MenuLabel"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"
+		        android:layout_marginLeft="5dp"
+		        android:text="@string/labelfriendname"
+		        android:textStyle="bold" />
+		    
+		    <TextView
+		        android:id="@+id/labellocation"
+		        style="@style/MenuLabel"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"
+		        android:layout_marginLeft="40dp"
+		        android:text="@string/labelfriendlocation"
+		        android:textStyle="bold" />
+	    </LinearLayout>
+	    
+	    <!-- <LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+			android:layout_marginTop="5dp"
+		    android:orientation="horizontal">
+
+		    <TextView
+		        android:id="@+id/labelfriend1"
+		        style="@style/MenuLabel"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dp"
+		        android:text="@string/labelfriend"
+		        android:textSize="15sp" />
+		    
+		    <EditText
+			    android:id="@+id/editfriendname1"
+			    style="@style/Menubox"
+			    android:layout_width="100dp"
+			    android:layout_height="wrap_content"
+			    android:layout_marginLeft="10dp"
+			    android:ems="10" />
+		    <EditText
+			    android:id="@+id/editfriendlocation1"
+			    style="@style/Menubox"
+			    android:layout_width="100dp"
+			    android:layout_height="wrap_content"
+			    android:layout_marginLeft="5dp"
+			    android:ems="10" />
+		</LinearLayout> -->
+		
+		<!-- <LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+			android:layout_marginTop="5dp" 
+		    android:orientation="horizontal">
+		    <TextView
+		        android:id="@+id/labelfriend2"
+		        style="@style/MenuLabel"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dp"
+		        android:layout_marginTop="10dp"
+		        android:text="@string/labelfriend" />
+		    
+		    <EditText
+			    android:id="@+id/editfriendname2"
+			    style="@style/Menubox"
+			    android:layout_width="100dp"
+			    android:layout_height="wrap_content"
+			    android:layout_marginLeft="10dp"
+			    android:ems="10" />
+		    <EditText
+			    android:id="@+id/editfriendlocation2"
+			    style="@style/Menubox"
+			    android:layout_width="100dp"
+			    android:layout_height="wrap_content"
+			    android:layout_marginLeft="5dp"
+			    android:ems="10" />
+		</LinearLayout>
+		
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+			android:layout_marginTop="5dp" 
+		    android:orientation="horizontal">
+		    <TextView
+		        android:id="@+id/labelfriend3"
+		        style="@style/MenuLabel"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dp"
+		        android:layout_marginTop="10dp"
+		        android:text="@string/labelfriend" />
+		    
+		    <EditText
+			    android:id="@+id/editfriendname3"
+			    style="@style/Menubox"
+			    android:layout_width="100dp"
+			    android:layout_height="wrap_content"
+			    android:layout_marginLeft="10dp"
+			    android:ems="10" />
+		    <EditText
+			    android:id="@+id/editfriendlocation3"
+			    style="@style/Menubox"
+			    android:layout_width="100dp"
+			    android:layout_height="wrap_content"
+			    android:layout_marginLeft="5dp"
+			    android:ems="10" />
+		</LinearLayout> -->
+	    
+	</LinearLayout>
+	
+	<!-- To print raw error message for dev purpose -->
+	<TextView
+	    android:id="@+id/errordev"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="15dp"
+	    android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	<Button
+	    android:id="@+id/btncreatetrip"
+	    style="@style/Button"
+	    android:layout_marginTop="15dp"
+	    android:layout_gravity="center_horizontal"
+	    android:onClick="onClick"
+	    android:text="@string/btncreatetrip" />
+	
+</LinearLayout>
+</ScrollView>

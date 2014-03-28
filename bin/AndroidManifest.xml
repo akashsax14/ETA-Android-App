@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.nyu.cs9033.eta"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="19" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/eta"
+        android:theme="@style/AppTheme" >
+        
+        <activity
+            android:name="com.nyu.cs9033.eta.controllers.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND"></action>
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="com.nyu.cs9033.eta.controllers.CreateTripActivity"
+            android:label="@string/headcreatetrip" >
+        </activity>
+        
+        <activity
+            android:name="com.nyu.cs9033.eta.controllers.ViewTripActivity"
+            android:label="@string/headviewtrip" >
+        </activity>
+        
+        <activity
+            android:name="com.nyu.cs9033.eta.controllers.TripHistoryActivity"
+            android:label="@string/headviewtriphistory">
+        </activity>
+
+    </application>
+    
+</manifest>

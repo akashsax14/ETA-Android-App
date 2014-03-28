@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ETA</string>
+    <string name="action_settings">Settings</string>
+    
+    <string name="btncreate">Create Trip</string>
+    <string name="btnview">View Trip</string>
+    <string name="btnexit">Exit</string><string name="headwelcome">Welcome to ETA</string>
+    <string name="headcreatetrip">Create Trip</string><string name="labeltripname">Trip Name</string>
+    <string name="labeldestination">Destination</string>
+    
+    <string name="labeldate">Date</string>
+    <string name="labeltime">Estimated Time</string>
+    <string name="btncreatetrip">Create</string>
+    <string name="headviewtrip">View Trip</string>
+    <string name="btndate">Date</string>
+    <string name="btnadd">+</string>
+    <string name="labelfriend">Friend</string>
+    <string name="labelfriendname">NAME</string>
+    <string name="labelfriendlocation">LOCATION</string>
+    <string name="labelcreator">Your Name</string>
+    <string name="headviewtriphistory">Trip History</string>
+    <string name="btnviewhistory">View Trip History</string>
+    <string name="btndelete">X</string>
+    <string name="labeltripid">Trip Id</string>
+
+</resources>

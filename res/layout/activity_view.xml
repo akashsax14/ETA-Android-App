@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  tools:context=".ViewTripActivity">
+
+<RelativeLayout
+    style="@style/Layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    tools:context=".ViewTripActivity" >
+    
+	 <TextView
+         android:id="@+id/headviewtrip"
+         style="@style/Header"
+         android:text="@string/headviewtrip"/>
+
+     <TextView
+         android:id="@+id/labeltripname"
+         style="@style/MenuLabel"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/headviewtrip"
+         android:layout_marginLeft="15dp"
+         android:layout_marginTop="30dp"
+         android:text="@string/labeltripname" />
+
+     <TextView
+         android:id="@+id/viewtripname"
+         style="@style/MenuLabel"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignBottom="@+id/labeltripname"
+         android:layout_alignParentRight="true"
+         android:layout_marginRight="35dp"
+         android:ems="10"
+         android:background="#CCefe6d1"  />
+     
+     <TextView
+         android:id="@+id/labeldestination"
+         style="@style/MenuLabel"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignLeft="@+id/labeltripname"
+         android:layout_below="@+id/labeltripname"
+         android:layout_marginTop="20dp"
+         android:text="@string/labeldestination" />
+    
+     <TextView
+         android:id="@+id/viewdestname"
+         style="@style/MenuLabel"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/viewtripname"
+         android:layout_alignParentRight="true"
+         android:layout_marginRight="35dp"
+         android:layout_marginTop="20dp"
+         android:ems="10"
+         android:background="#CCefe6d1" />
+     
+     <TextView
+         android:id="@+id/labelcreator"
+         style="@style/MenuLabel"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignLeft="@+id/labeltripname"
+         android:layout_below="@+id/labeldestination"
+         android:layout_marginTop="20dp"
+         android:text="@string/labelcreator" />
+    
+     <TextView
+         android:id="@+id/viewcreator"
+         style="@style/MenuLabel"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/viewdestname"
+         android:layout_alignParentRight="true"
+         android:layout_marginRight="35dp"
+         android:layout_marginTop="20dp"
+         android:ems="10"
+         android:background="#CCefe6d1" />
+     
+     <TextView
+         android:id="@+id/labeldate"
+         style="@style/MenuLabel"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignLeft="@+id/labeltripname"
+         android:layout_below="@+id/labelcreator"
+         android:layout_marginTop="20dp"
+         android:text="@string/labeldate" />
+    
+     <TextView
+         android:id="@+id/viewdate"
+         style="@style/MenuLabel"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/viewcreator"
+         android:layout_alignParentRight="true"
+         android:layout_marginRight="35dp"
+         android:layout_marginTop="20dp"
+         android:ems="10"
+         android:background="#CCefe6d1" />
+
+     <!-- To print raw error message for dev purpose -->
+     <TextView
+         android:id="@+id/errordev"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignLeft="@+id/errordisplay"
+         android:layout_alignParentBottom="true"
+         android:layout_marginBottom="20dp"
+         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+     <TextView
+         android:id="@+id/errordisplay"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/friendlayout"
+         android:layout_centerHorizontal="true"
+         android:layout_marginTop="20dp"
+         android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+     <RelativeLayout
+	    android:id="@+id/friendlayout"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:layout_below="@+id/viewdate"
+	    android:layout_marginLeft="11dp"
+	    android:layout_marginTop="40dp"
+	    android:background="#CCefe6d1" >
+
+	    <TextView
+	        android:id="@+id/labelname"
+	        style="@style/MenuLabel"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_above="@+id/editfriendname1"
+	        android:layout_alignLeft="@+id/editfriendname1"
+	        android:layout_marginTop="30dp"
+	        android:text="@string/labelfriendname"
+	        android:textStyle="bold" />
+	    
+	    <TextView
+	        android:id="@+id/labellocation"
+	        style="@style/MenuLabel"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_above="@+id/editfriendlocation1"
+	        android:layout_alignLeft="@+id/editfriendlocation1"
+	        android:layout_marginTop="30dp"
+	        android:text="@string/labelfriendlocation"
+	        android:textStyle="bold" />
+	    
+	    <TextView
+	        android:id="@+id/labelfriend1"
+	        style="@style/MenuLabel"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="15dp"
+	        android:layout_marginTop="70dp"
+	        android:text="@string/labelfriend" />
+	    
+	    <TextView
+		    android:id="@+id/editfriendname1"
+		    style="@style/MenuLabel"
+		    android:layout_width="100dp"
+		    android:layout_height="wrap_content"
+		    android:layout_alignBottom="@+id/labelfriend1"
+		    android:layout_toRightOf="@+id/labelfriend1"
+		    android:layout_marginLeft="15dp"
+		    android:ems="10" />
+	    
+	    <TextView
+		    android:id="@+id/editfriendlocation1"
+		    style="@style/MenuLabel"
+		    android:layout_width="100dp"
+		    android:layout_height="wrap_content"
+		    android:layout_alignBottom="@+id/editfriendname1"
+		    android:layout_toRightOf="@+id/editfriendname1"
+		    android:layout_marginLeft="15dp"
+		    android:ems="10" />
+	     
+	    <TextView
+	        android:id="@+id/labelfriend2"
+	        style="@style/MenuLabel"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/labelfriend1"
+	        android:layout_below="@+id/labelfriend1"
+	    	android:layout_marginTop="20dp"
+	        android:text="@string/labelfriend" />
+	    
+	    <TextView
+		    android:id="@+id/editfriendname2"
+		    style="@style/MenuLabel"
+		    android:layout_width="100dp"
+		    android:layout_height="wrap_content"
+		    android:layout_alignBottom="@+id/labelfriend2"
+		    android:layout_toRightOf="@+id/labelfriend2"
+		    android:layout_marginLeft="15dp"
+		    android:ems="10" />
+	    
+	    <TextView
+		    android:id="@+id/editfriendlocation2"
+		    style="@style/MenuLabel"
+		    android:layout_width="100dp"
+		    android:layout_height="wrap_content"
+		    android:layout_alignBottom="@+id/editfriendname2"
+		    android:layout_toRightOf="@+id/editfriendname2"
+		    android:layout_marginLeft="15dp"
+		    android:ems="10" />
+	    
+	    <TextView
+	        android:id="@+id/labelfriend3"
+	        style="@style/MenuLabel"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/labelfriend2"
+	        android:layout_below="@+id/labelfriend2"
+	    	android:layout_marginTop="20dp"
+	        android:text="@string/labelfriend" />
+	    
+	    <TextView
+		    android:id="@+id/editfriendname3"
+		    style="@style/MenuLabel"
+		    android:layout_width="100dp"
+		    android:layout_height="wrap_content"
+		    android:layout_alignBottom="@+id/labelfriend3"
+		    android:layout_toRightOf="@+id/labelfriend3"
+		    android:layout_marginLeft="15dp"
+		    android:ems="10" />
+	    
+	    <TextView
+		    android:id="@+id/editfriendlocation3"
+		    style="@style/MenuLabel"
+		    android:layout_width="100dp"
+		    android:layout_height="wrap_content"
+		    android:layout_alignBottom="@+id/editfriendname3"
+		    android:layout_toRightOf="@+id/editfriendname3"
+		    android:layout_marginLeft="15dp"
+		    android:ems="10" />
+	    
+	   
+	</RelativeLayout> 
+     
+</RelativeLayout>
+</ScrollView>
