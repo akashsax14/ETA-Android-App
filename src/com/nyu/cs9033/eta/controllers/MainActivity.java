@@ -7,14 +7,12 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.widget.Button;
-import android.widget.TextView;
-import android.util.Log;
+import android.widget.Toast;
 import android.view.View;
 
 public class MainActivity extends Activity 
 {
 	Trip t;
-	private static final String TAG = "MainActivity";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -22,12 +20,10 @@ public class MainActivity extends Activity
 		{
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_main_linear);
-			Log.i(TAG, "onCreate");
 		}
 		catch(Exception e)
 		{
-			TextView error = (TextView) findViewById(R.id.errordev);
-			error.setText(e.toString());
+			Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
 		}
 	}
 	
@@ -51,11 +47,6 @@ public class MainActivity extends Activity
 		}
 	}
 	
-	/**
-	 * This method should start the
-	 * Activity responsible for creating
-	 * a Trip.
-	 */
 	public void startTripCreator() 
 	{
 		try
@@ -65,19 +56,12 @@ public class MainActivity extends Activity
 		}
 		catch(Exception e)
 		{
-			TextView error = (TextView) findViewById(R.id.errordev);
-			error.setText(e.toString());
+			Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
 		}
 	}
 	
-	/**
-	 * This method should start the
-	 * Activity responsible for viewing
-	 * a Trip.
-	 */
-	public void startTripHistoryViewer() {
-		
-		// TODO - fill in here
+	public void startTripHistoryViewer() 
+	{
 		try
 		{
 			Intent intentTH = new Intent(this, TripHistoryActivity.class);
@@ -85,8 +69,7 @@ public class MainActivity extends Activity
 		}
 		catch(Exception e)
 		{
-			TextView error = (TextView) findViewById(R.id.errordev);
-			error.setText(e.toString());
+			Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
 		}
 	}
 }

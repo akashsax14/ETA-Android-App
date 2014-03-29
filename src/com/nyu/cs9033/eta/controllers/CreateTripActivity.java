@@ -9,10 +9,9 @@ import com.nyu.cs9033.eta.models.Person;
 import com.nyu.cs9033.eta.models.Trip;
 import com.nyu.cs9033.eta.R;
 
-//import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-//import android.content.Intent;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -61,8 +60,7 @@ public class CreateTripActivity extends FragmentActivity
 			}
 			catch(Exception e)
 			{
-				//TextView error = (TextView) findViewById(R.id.errordev);
-				//error.setText(e.toString());
+				//Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
 			}
 		}
 	}
@@ -80,11 +78,20 @@ public class CreateTripActivity extends FragmentActivity
 		{
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_create_linear);
+			
+			Intent intent = getIntent();
+		    if (intent.getType().equals("text/plain"))
+		    {
+		    	String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+		    	sharedText = sharedText.substring(0, sharedText.indexOf("http")).trim();
+		    	EditText destination = (EditText) findViewById(R.id.editdestname);
+		    	destination.setText(sharedText);
+		    }
+		    	
 		}
 		catch(Exception e)
 		{
-			TextView error = (TextView) findViewById(R.id.errordev);
-			error.setText(e.toString());
+			Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
 		}
 	}
 	
@@ -110,8 +117,7 @@ public class CreateTripActivity extends FragmentActivity
 		}
 		catch(Exception e)
 		{
-			TextView error = (TextView) findViewById(R.id.errordev);
-			error.setText(e.toString());
+			Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
 		}
 	}
 	
@@ -192,13 +198,6 @@ public class CreateTripActivity extends FragmentActivity
 		cancelTripCreation();
 	}
 	
-	/**
-	 * This method should be used to
-	 * instantiate a Trip model.
-	 * 
-	 * @return The Trip as represented
-	 * by the View.
-	 */
 	public Trip createTrip() 
 	{
 		// TODO - fill in here
@@ -227,24 +226,11 @@ public class CreateTripActivity extends FragmentActivity
 		}
 		catch(Exception e)
 		{
-			TextView error = (TextView) findViewById(R.id.errordev);
-			error.setText(e.toString());
+			Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
 			return null;
 		}
 	}
 
-	/**
-	 * For HW2 you should treat this method as a 
-	 * way of sending the Trip data back to the
-	 * main Activity
-	 * 
-	 * Note: If you call finish() here the Activity 
-	 * eventually end and pass an Intent back to 
-	 * the previous Activity using setResult().
-	 * 
-	 * @return whether the Trip was successfully 
-	 * persisted.
-	 */
 	public boolean persistTrip(Trip trip) 
 	{
 		try
@@ -263,27 +249,13 @@ public class CreateTripActivity extends FragmentActivity
 		}
 		catch(Exception e)
 		{
-			TextView error = (TextView) findViewById(R.id.errordev);
-			error.setText(e.toString());
+			Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
 			return false;
 		}
 	}
 
-	/**
-	 * This method should be used when a
-	 * user wants to cancel the creation of
-	 * a Trip.
-	 * 
-	 * Note: You most likely want to call this
-	 * if your activity dies during the process
-	 * of a trip creation or if a cancel/back
-	 * button event occurs. Should return to
-	 * the previous activity without a result
-	 * using finish() and setResult().
-	 */
 	public void cancelTripCreation() 
 	{
-		// TODO - fill in here
 		try
 		{
 			setResult(RESULT_CANCELED, getIntent());
@@ -292,8 +264,7 @@ public class CreateTripActivity extends FragmentActivity
 		}
 		catch(Exception e)
 		{
-			TextView error = (TextView) findViewById(R.id.errordev);
-			error.setText(e.toString());
+			Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
 		}
 	}
 }

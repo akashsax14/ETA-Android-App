@@ -24,5 +24,6 @@
     <string name="btnviewhistory">View Trip History</string>
     <string name="btndelete">X</string>
     <string name="labeltripid">Trip Id</string>
+    <string name="headhistory">Trip History</string>
 
 </resources>

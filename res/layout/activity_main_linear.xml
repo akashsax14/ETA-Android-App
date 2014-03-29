@@ -12,6 +12,7 @@
        style="@style/Header"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
+       android:layout_gravity="center_horizontal"
        android:text="@string/headwelcome" />
 
    <Button
@@ -33,20 +34,13 @@
        android:onClick="onClick"
        android:text="@string/btnviewhistory" />
 
-   <!-- To print raw error message for dev purpose -->
-   <TextView
-       android:id="@+id/errordev"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_marginBottom="55dp"
-       android:textAppearance="?android:attr/textAppearanceLarge" />
-
    <Button
        android:id="@+id/btnexit"
        style="@style/ButtonL"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_gravity="center_horizontal"
+       android:layout_marginTop="150dp"
        android:onClick="onClick"
        android:text="@string/btnexit" />
     

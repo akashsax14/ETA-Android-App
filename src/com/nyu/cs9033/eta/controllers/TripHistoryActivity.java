@@ -43,12 +43,11 @@ public class TripHistoryActivity extends ListActivity
 		}
 	}
 	
-	@Override 
+	@Override
     public void onListItemClick(ListView l, View v, int position, long id) 
 	{
 		try
 		{
-			//Toast.makeText(this, ""+id,Toast.LENGTH_LONG).show();
 			Intent intent = new Intent(this, ViewTripActivity.class);
 			
 			int trip_id = Integer.parseInt(((TextView)v.findViewById(R.id.tripid)).getText().toString());
@@ -59,7 +58,6 @@ public class TripHistoryActivity extends ListActivity
 			p = tdh.getTripPersons(trip_id);
 			t.setFriends(p);
 			
-			//Toast.makeText(this, ""+t.getTripId(),Toast.LENGTH_SHORT).show();
 			Bundle b = new Bundle();
 			b.putParcelable("trip", t);
 			intent.putExtras(b);
@@ -75,12 +73,19 @@ public class TripHistoryActivity extends ListActivity
 	@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) 
 	{
-		super.onActivityResult(requestCode, resultCode, data);
-		if(resultCode==RESULT_OK)
+		try
 		{
-		   Intent refresh = new Intent(this, TripHistoryActivity.class);
-		   startActivity(refresh);
-		   this.finish();
+			super.onActivityResult(requestCode, resultCode, data);
+			if(resultCode==RESULT_OK)
+			{
+			   Intent refresh = new Intent(this, TripHistoryActivity.class);
+			   startActivity(refresh);
+			   this.finish();
+			}
+		}
+		catch(Exception e)
+		{
+			Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
 		}
     }
 }
