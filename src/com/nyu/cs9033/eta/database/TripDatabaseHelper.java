@@ -13,7 +13,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class TripDatabaseHelper extends SQLiteOpenHelper
 {
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 3;
 	private static final String DATABASE_NAME = "trips";
 	
 	private static final String TABLE_TRIP = "trip";
@@ -27,6 +27,7 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
 	private static final String C_PERSON_ID = "_id";
 	private static final String C_PERSON_NAME = "person_name";
 	private static final String C_PERSON_LOCATION = "person_location";
+	private static final String C_PERSON_PHONE = "person_phone";
 	private static final String C_PERSON_TRIP_ID = "person_trip_id";
 
 	private String colsTrip[] = {C_TRIP_ID, C_TRIP_NAME, C_TRIP_DESTINATION, C_TRIP_CREATOR, C_TRIP_DATE};
@@ -66,6 +67,7 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
 				+ C_PERSON_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
 				+ C_PERSON_NAME + " VARCHAR(50), "
 				+ C_PERSON_LOCATION + " VARCHAR(100), "
+				+ C_PERSON_PHONE + " VARCHAR(20), "
 				+ C_PERSON_TRIP_ID + " INTEGER)");
 	}
 
@@ -95,6 +97,7 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
 		ContentValues cv = new ContentValues();
 		cv.put(C_PERSON_NAME, person.getName());
 		cv.put(C_PERSON_LOCATION, person.getLocation());
+		cv.put(C_PERSON_PHONE, person.getPhone());
 		cv.put(C_PERSON_TRIP_ID, trip_id);
 		
 		return getWritableDatabase().insert(TABLE_PERSON, null, cv);
@@ -114,8 +117,8 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
 		ArrayList<Person> alp = new ArrayList<Person>();
 		while(!c.isAfterLast())
 		{
-			Person p = new Person(c.getString(1), c.getString(2));
-			//Log.i(TAG, "getTripPerson"+c.getString(1));
+			Person p = new Person(c.getString(1), c.getString(2), c.getString(3));
+			
 			alp.add(p);
 			c.moveToNext();
 		}
@@ -147,7 +150,5 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
 	{
 		getWritableDatabase().delete(TABLE_TRIP, C_TRIP_ID + "=" + trip_id, null);
 		getWritableDatabase().delete(TABLE_PERSON, C_PERSON_TRIP_ID + "=" + trip_id, null);
-		//getReadableDatabase().rawQuery("DELETE FROM " + TABLE_TRIP + " WHERE " + C_TRIP_ID + " = " + trip_id, null);
-		//getReadableDatabase().rawQuery("DELETE FROM " + TABLE_PERSON + " WHERE " + C_PERSON_TRIP_ID + " = " + trip_id, null);
 	}
 }

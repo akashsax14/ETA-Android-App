@@ -7,7 +7,14 @@ public class Person implements Parcelable
 {
 	protected String name;
 	protected String location;
+	protected String phone;
 	
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 	public String getName() {
 		return name;
 	}
@@ -44,6 +51,7 @@ public class Person implements Parcelable
 		// TODO - fill in here
 		name = p.readString();
 		location = p.readString();
+		phone = p.readString();
 	}
 	
 	/**
@@ -52,11 +60,12 @@ public class Person implements Parcelable
 	 * @param args Add arbitrary number of arguments to
 	 * instantiate trip class.
 	 */
-	public Person(String name, String location) {
+	public Person(String name, String location, String phone) {
 		
 		// TODO - fill in here, please note you must have more arguments here
 		this.name = name;
 		this.location = location;
+		this.phone = phone;
 	}
 
 	@Override
@@ -65,6 +74,7 @@ public class Person implements Parcelable
 		// TODO - fill in here 
 		out.writeString(name);
 		out.writeString(location);
+		out.writeString(phone);
 	}
 	
 	/**

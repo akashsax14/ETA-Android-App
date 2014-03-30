@@ -50,7 +50,7 @@ public class TripHistoryActivity extends ListActivity
 		{
 			Intent intent = new Intent(this, ViewTripActivity.class);
 			
-			int trip_id = Integer.parseInt(((TextView)v.findViewById(R.id.tripid)).getText().toString());
+			long trip_id = Long.parseLong(((TextView)v.findViewById(R.id.tripid)).getText().toString());
 			Trip t = tdh.getTrip(trip_id);
 			t.setTripId(trip_id);
 			

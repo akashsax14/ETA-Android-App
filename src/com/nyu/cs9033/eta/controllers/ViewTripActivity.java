@@ -91,11 +91,12 @@ public class ViewTripActivity extends Activity
 		{
 			LinearLayout parent = (LinearLayout) findViewById(R.id.friendlayout);
 			
-			LinearLayout child = new LinearLayout(this);
+			/*************************LINE 1 of Friends Layout****************************/
+			LinearLayout child_line1 = new LinearLayout(this);
 			LinearLayout.LayoutParams myLayoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 			myLayoutParams.topMargin = dp(15);
-			child.setOrientation(LinearLayout.HORIZONTAL);
-			child.setLayoutParams(myLayoutParams);
+			child_line1.setOrientation(LinearLayout.HORIZONTAL);
+			child_line1.setLayoutParams(myLayoutParams);
 			
 			TextView label = new TextView(this);
 			LayoutParams labelParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -125,11 +126,41 @@ public class ViewTripActivity extends Activity
 			loc.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
 			loc.setPadding(dp(5), dp(5), dp(5), dp(5));
 			
-			child.addView(label);
-			child.addView(name);
-			child.addView(loc);
+			child_line1.addView(label);
+			child_line1.addView(name);
+			child_line1.addView(loc);
+			/***********************END LINE 1 of Friends Layout**************************/
 			
-			parent.addView(child);
+			/*************************LINE 2 of Friends Layout****************************/
+			LinearLayout child_line2 = new LinearLayout(this);
+			LinearLayout.LayoutParams myLayoutParams2 = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+			myLayoutParams2.topMargin = dp(5);
+			child_line2.setOrientation(LinearLayout.HORIZONTAL);
+			child_line2.setLayoutParams(myLayoutParams2);
+			
+			TextView phonelabel = new TextView(this);
+			LayoutParams phonelabelParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			phonelabelParams.leftMargin = dp(40);
+			phonelabel.setLayoutParams(phonelabelParams);
+			phonelabel.setText("Phone ");
+			phonelabel.setTextAppearance(this, android.R.style.TextAppearance_Small);
+			phonelabel.setTypeface(Typeface.MONOSPACE);
+			phonelabel.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+			phonelabel.setPadding(dp(5), dp(5), dp(5), dp(5));
+			
+			TextView phone = new TextView(this);
+			LayoutParams phoneParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			phoneParams.leftMargin = dp(30);
+			phone.setText(p.getPhone());
+			phone.setLayoutParams(phoneParams);
+			phone.setWidth(dp(150));
+			
+			child_line2.addView(phonelabel);
+			child_line2.addView(phone);
+			/***********************END LINE 2 of Friends Layout**************************/
+			
+			parent.addView(child_line1);
+			parent.addView(child_line2);
 		}
 		catch(Exception e)
 		{
