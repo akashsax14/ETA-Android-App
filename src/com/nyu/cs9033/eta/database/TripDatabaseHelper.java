@@ -1,6 +1,9 @@
 package com.nyu.cs9033.eta.database;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.nyu.cs9033.eta.models.Person;
 import com.nyu.cs9033.eta.models.Trip;
@@ -86,7 +89,9 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
 		cv.put(C_TRIP_NAME, trip.getTripName());
 		cv.put(C_TRIP_DESTINATION, trip.getDestinationName());
 		cv.put(C_TRIP_CREATOR, trip.getCreator());
-		cv.put(C_TRIP_DATE, trip.getDate());
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+		String d = df.format(trip.getDate());
+		cv.put(C_TRIP_DATE, d);
 		long id = getWritableDatabase().insert(TABLE_TRIP, null, cv);
 		//Log.i(TAG, "InsertTrip");
 		return id;
@@ -133,15 +138,23 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
 		c.moveToFirst();
 		
 		Trip t = new Trip();
+		try
+		{
+			t.setTripId(c.getLong(0));
+			t.setTripName(c.getString(1));
+			t.setDestinationName(c.getString(2));
+			t.setCreator(c.getString(3));
+			Date date = new SimpleDateFormat("MM/dd/yyyy").parse(c.getString(4));
+			t.setDate(date);
+			t.setFriends(null);
+			
+			c.close();
+		}
+		catch(Exception e)
+		{
+			
+		}
 		
-		t.setTripId(c.getLong(0));
-		t.setTripName(c.getString(1));
-		t.setDestinationName(c.getString(2));
-		t.setCreator(c.getString(3));
-		t.setDate(c.getString(4));
-		t.setFriends(null);
-		
-		c.close();
 		
 		return t;
 	}

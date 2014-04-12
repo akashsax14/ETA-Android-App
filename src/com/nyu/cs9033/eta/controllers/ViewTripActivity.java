@@ -1,5 +1,7 @@
 package com.nyu.cs9033.eta.controllers;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import com.nyu.cs9033.eta.database.TripDatabaseHelper;
@@ -59,7 +61,9 @@ public class ViewTripActivity extends Activity
 			creator.setText(trip.getCreator());
 			
 			TextView date= (TextView) findViewById(R.id.viewdate);
-			date.setText(trip.getDate());
+			DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+			String d = df.format(trip.getDate());
+			date.setText(d);
 
 			ArrayList<Person> friends= trip.getFriends();
 			

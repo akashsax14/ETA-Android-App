@@ -1,8 +1,10 @@
 package com.nyu.cs9033.eta.controllers;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import com.nyu.cs9033.eta.database.TripDatabaseHelper;
 import com.nyu.cs9033.eta.models.Person;
@@ -33,7 +35,7 @@ import android.widget.Toast;
 
 public class CreateTripActivity extends FragmentActivity 
 {
-	static String date;
+	static Date date;
 	int frnd_num = 0;
 	private static final int FRIENDNAMEIDPREFIX = 100000;
 	private static final int FRIENDLOCATIONIDPREFIX = 200000;
@@ -64,7 +66,7 @@ public class CreateTripActivity extends FragmentActivity
 			// Do something with the date chosen by the user
 			try
 			{
-				date = month+"/"+day+"/"+year;
+				date = new SimpleDateFormat("MM/dd/yyyy").parse(month+"/"+day+"/"+year);
 			}
 			catch(Exception e)
 			{
@@ -292,7 +294,7 @@ public class CreateTripActivity extends FragmentActivity
 			{
 				/*long person_id = */db.insertPerson(trip_id, p);
 			}
-			Toast.makeText(this, "Trip Saved",Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "Trip Saved ",Toast.LENGTH_LONG).show();
 			finish();
 			return true;
 		}

@@ -1,6 +1,7 @@
 package com.nyu.cs9033.eta.models;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -11,7 +12,7 @@ public class Trip implements Parcelable
 	protected String tripName;
 	protected String destinationName;
 	protected String creator;
-	protected String date;
+	protected Date date;
 	protected ArrayList<Person> friends = new ArrayList<Person>();
 	
 	public long getTripId() {
@@ -32,10 +33,10 @@ public class Trip implements Parcelable
 	public void setFriends(ArrayList<Person> friends) {
 		this.friends = friends;
 	}
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	public String getTripName() {
@@ -75,14 +76,13 @@ public class Trip implements Parcelable
 	 * Model fields.
 	 */
 	public Trip(Parcel p) 
-	{		
-		// TODO - fill in here
+	{
 		p.readTypedList(friends, Person.CREATOR);
 		tripId = p.readLong();
 		tripName = p.readString();
 		destinationName = p.readString();
 		creator = p.readString();
-		date = p.readString();
+		date = new Date(p.readLong());
 	}
 	
 	/**
@@ -92,9 +92,8 @@ public class Trip implements Parcelable
 	 * @param args Add arbitrary number of arguments to
 	 * instantiate trip class.
 	 */
-	public Trip(long tripId, String tripName, String destinationName, String creator, String date, ArrayList<Person> friends)
-	{	
-		// TODO - fill in here, please note you must have more arguments here
+	public Trip(long tripId, String tripName, String destinationName, String creator, Date date, ArrayList<Person> friends)
+	{
 		this.tripId = tripId;
 		this.tripName = tripName;
 		this.destinationName = destinationName;
@@ -112,7 +111,7 @@ public class Trip implements Parcelable
 		out.writeString(tripName);
 		out.writeString(destinationName);
 		out.writeString(creator);
-		out.writeString(date);
+		out.writeLong(date.getTime());
 	}
 	
 	/**
