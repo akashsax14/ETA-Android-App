@@ -3,23 +3,36 @@ package com.nyu.cs9033.eta.models;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 public class Trip implements Parcelable 
 {
 	protected long tripId;
+	protected long serverRefId;
 	protected String tripName;
 	protected String destinationName;
 	protected String creator;
 	protected Date date;
 	protected ArrayList<Person> friends = new ArrayList<Person>();
 	
+	private static final String TAG = "TRIP";
+	
 	public long getTripId() {
 		return tripId;
 	}
 	public void setTripId(long tripId) {
 		this.tripId = tripId;
+	}
+	public long getServerRefId() {
+		return serverRefId;
+	}
+	public void setServerRefId(long serverRefId) {
+		this.serverRefId = serverRefId;
 	}
 	public String getCreator() {
 		return creator;
@@ -52,6 +65,29 @@ public class Trip implements Parcelable
 		this.destinationName = destinationName;
 	}
 
+	public JSONObject toJSON()
+	{
+		JSONObject json = new JSONObject();
+		try 
+		{
+			json.put("command", "CREATE_TRIP");
+			json.put("location", destinationName);
+			json.put("datetime", date.getTime());
+			
+			ArrayList<String> people = new ArrayList<String>();
+			for(Person p : friends)
+			{
+				people.add(p.getName());
+			}
+			json.put("people", new JSONArray (people));
+		}
+		catch (Exception e) 
+		{
+			Log.i(TAG, "Exception in toJSON :" + e.toString());
+		}
+		return json;
+	}
+
 	
 	//Date date;
 	public static final Parcelable.Creator<Trip> CREATOR = new Parcelable.Creator<Trip>() {
@@ -66,7 +102,7 @@ public class Trip implements Parcelable
 	
 	public Trip()
 	{
-		
+		this.serverRefId = 0;
 	}
 	
 	/**
@@ -79,6 +115,7 @@ public class Trip implements Parcelable
 	{
 		p.readTypedList(friends, Person.CREATOR);
 		tripId = p.readLong();
+		serverRefId = p.readLong();
 		tripName = p.readString();
 		destinationName = p.readString();
 		creator = p.readString();
@@ -92,9 +129,10 @@ public class Trip implements Parcelable
 	 * @param args Add arbitrary number of arguments to
 	 * instantiate trip class.
 	 */
-	public Trip(long tripId, String tripName, String destinationName, String creator, Date date, ArrayList<Person> friends)
+	public Trip(long tripId, long serverRefId, String tripName, String destinationName, String creator, Date date, ArrayList<Person> friends)
 	{
 		this.tripId = tripId;
+		this.serverRefId = serverRefId;
 		this.tripName = tripName;
 		this.destinationName = destinationName;
 		this.creator = creator;
@@ -103,21 +141,16 @@ public class Trip implements Parcelable
 	}
 
 	@Override
-	public void writeToParcel(Parcel out, int arg1) {
-		
-		// TODO - fill in here 
+	public void writeToParcel(Parcel out, int arg1) 
+	{
 		out.writeTypedList(friends);
 		out.writeLong(tripId);
+		out.writeLong(serverRefId);
 		out.writeString(tripName);
 		out.writeString(destinationName);
 		out.writeString(creator);
 		out.writeLong(date.getTime());
 	}
-	
-	/**
-	 * Feel free to add additional functions as necessary below.
-	 */
-	
 	
 	/**
 	 * Do not implement

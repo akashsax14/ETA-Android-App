@@ -114,7 +114,7 @@
 	    android:layout_height="wrap_content"
 	    android:layout_gravity="center_horizontal"
 	    android:layout_marginTop="20dp"
-	    android:background="#CCefe6d1"
+	    android:background="#CCb3b3b3"
 	    android:orientation="vertical" >
 
 	    <!-- Persons HEADING -->    
@@ -172,8 +172,9 @@
 	<Button
 	    android:id="@+id/btncreatetrip"
 	    style="@style/Button"
-	    android:layout_marginTop="30dp"
 	    android:layout_gravity="center_horizontal"
+	    android:layout_marginTop="30dp"
+	    android:background="@android:drawable/btn_default"
 	    android:onClick="onClick"
 	    android:text="@string/btncreatetrip" />
 	

@@ -6,7 +6,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.json.JSONObject;
+
 import com.nyu.cs9033.eta.database.TripDatabaseHelper;
+import com.nyu.cs9033.eta.helper.AsyncResponse;
+import com.nyu.cs9033.eta.helper.LocationUpdateService;
+import com.nyu.cs9033.eta.helper.SendPostRequestHelper;
 import com.nyu.cs9033.eta.models.Person;
 import com.nyu.cs9033.eta.models.Trip;
 import com.nyu.cs9033.eta.R;
@@ -14,14 +19,19 @@ import com.nyu.cs9033.eta.R;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -33,17 +43,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class CreateTripActivity extends FragmentActivity 
+public class CreateTripActivity extends FragmentActivity implements AsyncResponse
 {
 	static Date date;
 	int frnd_num = 0;
+	Trip t;
+	private long responseId = -1;
 	private static final int FRIENDNAMEIDPREFIX = 100000;
 	private static final int FRIENDLOCATIONIDPREFIX = 200000;
 	private static final int FRIENDPHONEIDPREFIX = 300000;
 	private static final int FRIENDLAYOUTLNONEIDPREFIX = 900000;
 	private static final int FRIENDLAYOUTLNTWOIDPREFIX = 910000;
 	private static final int PICK_CONTACT = 1;
-	
+	private static final String RESPONSE_JSON_KEY = "trip_id";
+	private static final String TAG = "CREATETRIPACTIVITY";
+	public SendPostRequestHelper req = new SendPostRequestHelper();
 	
 	//*************Used from <http://developer.android.com/guide/topics/ui/controls/pickers.html> *************
 	public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener 
@@ -70,7 +84,7 @@ public class CreateTripActivity extends FragmentActivity
 			}
 			catch(Exception e)
 			{
-				//Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
+				Log.i(TAG, "Exception in onDateSet :" + e.toString());
 			}
 		}
 	}
@@ -87,6 +101,7 @@ public class CreateTripActivity extends FragmentActivity
 		try
 		{
 			super.onCreate(savedInstanceState);
+			req.transferResult = this;
 			setContentView(R.layout.activity_create_linear);
 			if(getIntent().getAction() != null)
 			{
@@ -103,7 +118,8 @@ public class CreateTripActivity extends FragmentActivity
 		}
 		catch(Exception e)
 		{
-			Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
+			Log.i(TAG, "Exception in onCreate :" + e.toString());
+			Toast.makeText(this, "Exception in onCreate : "+e.toString(),Toast.LENGTH_LONG).show();
 		}
 	}
 	
@@ -115,7 +131,18 @@ public class CreateTripActivity extends FragmentActivity
 			switch(b.getId())
 			{
 				case R.id.btncreatetrip:
-					persistTrip(createTrip());
+					t = createTrip();
+					if(isConnected())
+						sendToServer();
+					else
+					{
+						t.setServerRefId(0);
+						Toast.makeText(this, "No Network Connection - Saving locally!",Toast.LENGTH_LONG).show();
+						persistTrip(t);
+					}
+					Intent i = new Intent(this, LocationUpdateService.class);
+					
+					ComponentName x = startService(i);
 					break;
 				case R.id.btnadd:
 					frnd_num++;
@@ -131,7 +158,56 @@ public class CreateTripActivity extends FragmentActivity
 		}
 		catch(Exception e)
 		{
-			Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
+			Log.i(TAG, "Exception in inClick :" + e.toString());
+			Toast.makeText(this, "Exception in onClick : "+e.toString(),Toast.LENGTH_LONG).show();
+		}
+	}
+	
+	public boolean isConnected()
+	{
+		try
+		{
+			ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo ni = cm.getActiveNetworkInfo();
+			return ni!=null && ni.isConnected();
+		}
+		catch(Exception e)
+		{
+			Log.i(TAG, "Exception in isConnected :" + e.toString());
+			Toast.makeText(this, "Exception in isConnected : "+e.toString(),Toast.LENGTH_LONG).show();
+		}
+		return false;
+	}
+	
+	public void processFinish(JSONObject output)
+	{
+		try 
+		{
+			responseId = output.getLong(RESPONSE_JSON_KEY);
+			t.setServerRefId(responseId);
+			persistTrip(t);
+		} 
+		catch (Exception e) 
+		{
+			Log.i(TAG, "Exception in processFinish :" + e.toString());
+			Toast.makeText(this, "Exception in processFinish : "+e.toString(),Toast.LENGTH_LONG).show();
+		}
+	}
+	
+	public void sendToServer()
+	{
+		try
+		{
+			JSONObject json = t.toJSON();
+			if(isConnected())
+			{
+				req.execute(json);
+			}
+		}
+		catch(Exception e)
+		{
+			Log.i(TAG, "Exception in sendToServer :" + e.toString());
+			Toast.makeText(this, "Exception in sendToServer : "+e.toString(),Toast.LENGTH_LONG).show();
 		}
 	}
 	
@@ -222,7 +298,8 @@ public class CreateTripActivity extends FragmentActivity
 		}
 		catch(Exception e)
 		{
-			Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
+			Log.i(TAG, "Exception in addPersonToLayout :" + e.toString());
+			Toast.makeText(this, "Exception in addPersonToLayout : "+e.toString(),Toast.LENGTH_LONG).show();
 		}
 	}
 	
@@ -237,7 +314,8 @@ public class CreateTripActivity extends FragmentActivity
 		}
 		catch(Exception e)
 		{
-			Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
+			Log.i(TAG, "Exception in deletePersonFromLayout");
+			Toast.makeText(this, "Exception in deletePersonFromLayout : "+e.toString(),Toast.LENGTH_LONG).show();
 		}
 	}
 	
@@ -272,12 +350,14 @@ public class CreateTripActivity extends FragmentActivity
 				
 				friends.add(new Person(name, location, phone));
 			}
-			Trip t = new Trip(0, tripName, destName, creator, date, friends);
+			
+			Trip t = new Trip(0, 0, tripName, destName, creator, date, friends);
 			return t;
 		}
 		catch(Exception e)
 		{
-			Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
+			Log.i(TAG, "Exception in createTrip :" + e.toString());
+			Toast.makeText(this, "Exception in createTrip : "+e.toString(),Toast.LENGTH_LONG).show();
 			return null;
 		}
 	}
@@ -288,19 +368,26 @@ public class CreateTripActivity extends FragmentActivity
 		{
 			TripDatabaseHelper db = new TripDatabaseHelper(this);
 			
-			long trip_id = db.insertTrip(trip);
-			
+			long tripId = db.insertTrip(trip);
+			trip.setTripId(tripId);
 			for(Person p : trip.getFriends())
 			{
-				/*long person_id = */db.insertPerson(trip_id, p);
+				/*long person_id = */db.insertPerson(tripId, p);
 			}
 			Toast.makeText(this, "Trip Saved ",Toast.LENGTH_LONG).show();
+			
+			Intent i = new Intent(this, CreateTripActivity.class);
+			Bundle b = new Bundle();
+			b.putParcelable("trip", trip);
+			i.putExtras(b);
+			setResult(RESULT_OK, i);
 			finish();
 			return true;
 		}
 		catch(Exception e)
 		{
-			Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
+			Log.i(TAG, "Exception in persistTrip :" + e.toString());
+			Toast.makeText(this, "Exception in persistTrip : "+e.toString(),Toast.LENGTH_LONG).show();
 			return false;
 		}
 	}
@@ -315,7 +402,8 @@ public class CreateTripActivity extends FragmentActivity
 		}
 		catch(Exception e)
 		{
-			Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
+			Log.i(TAG, "Exception in cancelTripCreation :" + e.toString());
+			Toast.makeText(this, "Exception in cancelTripCreation : "+e.toString(),Toast.LENGTH_LONG).show();
 		}
 	}
 	
@@ -327,43 +415,39 @@ public class CreateTripActivity extends FragmentActivity
 		String phone = null;
 		try
 		{
-			switch(reqCode)
-		    {
-		    	case (PICK_CONTACT):
-		    		if (resultCode == Activity.RESULT_OK)
-		    		{
-		    			Uri contactData = data.getData();
-		    			Cursor c = getContentResolver().query(contactData, null, null, null, null);
-		    			if (c.moveToFirst())
-		    			{
-		    				String id = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
+			if (reqCode == PICK_CONTACT && resultCode == Activity.RESULT_OK)
+    		{
+    			Uri contactData = data.getData();
+    			Cursor c = getContentResolver().query(contactData, null, null, null, null);
+    			if (c.moveToFirst())
+    			{
+    				String id = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
 
-		    				String hasPhone = c.getString(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+    				String hasPhone = c.getString(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
 
-		    				if (hasPhone.equalsIgnoreCase("1")) 
-		    				{
-		    					Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null, 
-		                             ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = "+ id,null, null);
-		    					phones.moveToFirst();
-		    					phone = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-		    					
-		    					name = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
+    				if (hasPhone.equalsIgnoreCase("1")) 
+    				{
+    					Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null, 
+                             ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = "+ id,null, null);
+    					phones.moveToFirst();
+    					phone = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+    					
+    					name = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
 
-		    					String fullname[] = name.split(" ");
-						    	EditText n = (EditText) findViewById(FRIENDNAMEIDPREFIX + frnd_num);
-						    	n.setText(fullname[0]);
-						    	
-						    	EditText p = (EditText) findViewById(FRIENDPHONEIDPREFIX + frnd_num);
-						    	p.setText(phone);
-		    				}
-		    			}
-		    		}
-		    		break;
-		    }
+    					String fullname[] = name.split(" ");
+				    	EditText n = (EditText) findViewById(FRIENDNAMEIDPREFIX + frnd_num);
+				    	n.setText(fullname[0]);
+				    	
+				    	EditText p = (EditText) findViewById(FRIENDPHONEIDPREFIX + frnd_num);
+				    	p.setText(phone);
+    				}
+    			}
+    		}
 		}	
 		catch(Exception e)
 		{
-			Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
+			Log.i(TAG, "Exception in onActivityResult :" + e.toString());
+			Toast.makeText(this, "Exception in onActivityResult : "+e.toString(),Toast.LENGTH_LONG).show();
 		}
 	}
 }

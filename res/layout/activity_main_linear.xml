@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/Layout"
+    style="@style/LayoutL"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
@@ -21,6 +21,7 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_gravity="center_horizontal"
+       android:background="@android:drawable/btn_default"
        android:onClick="onClick"
        android:text="@string/btncreate" />
 
@@ -31,9 +32,46 @@
        android:layout_height="wrap_content"
        android:layout_gravity="center_horizontal"
        android:layout_marginTop="30dp"
+       android:background="@android:drawable/btn_default"
        android:onClick="onClick"
        android:text="@string/btnviewhistory" />
 
+   <LinearLayout 
+       android:id="@+id/statuslayout"
+       android:orientation="vertical"
+       android:background="#CCb3b3b3"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content">
+       
+       <LinearLayout 
+	       android:id="@+id/statuslayoutline1"
+	       android:orientation="horizontal"
+	       android:background="#CCb3b3b3"
+	       android:layout_width="wrap_content"
+	       android:layout_height="wrap_content">
+	       
+           <TextView
+       			android:id="@+id/statuspersonname"
+       			android:layout_width="wrap_content"
+	       		android:layout_height="wrap_content"
+	       		android:text="@string/labelfriendname" />
+           <TextView
+       			android:id="@+id/statusdistleft"
+       			android:layout_width="wrap_content"
+	       		android:layout_height="wrap_content"
+	       		android:layout_marginLeft="40dp"
+	       		android:text="@string/labeldistleft" />
+           <TextView
+       			android:id="@+id/statustimeleft"
+       			android:layout_width="wrap_content"
+	       		android:layout_height="wrap_content"
+	       		android:layout_marginLeft="40dp"
+	       		android:text="@string/labeltimeleft" />
+           
+		</LinearLayout>
+       
+   </LinearLayout>
+   
    <Button
        android:id="@+id/btnexit"
        style="@style/ButtonL"
@@ -41,6 +79,7 @@
        android:layout_height="wrap_content"
        android:layout_gravity="center_horizontal"
        android:layout_marginTop="150dp"
+       android:background="@android:drawable/btn_default"
        android:onClick="onClick"
        android:text="@string/btnexit" />
     

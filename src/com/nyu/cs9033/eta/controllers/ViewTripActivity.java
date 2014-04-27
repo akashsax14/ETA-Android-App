@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -22,14 +23,22 @@ import android.widget.LinearLayout.LayoutParams;
 
 public class ViewTripActivity extends Activity
 {	
+	private static final String TAG = "VIEWTRIPACTIVITY";
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_view_linear);
-		
-		Trip trip= getTrip(this.getIntent());
-		initView(trip);
+		try 
+		{
+			super.onCreate(savedInstanceState);
+			setContentView(R.layout.activity_view_linear);
+			
+			Trip trip= getTrip(this.getIntent());
+			initView(trip);
+		} 
+		catch (Exception e) 
+		{
+			Log.i(TAG, "Exception in onCreate :" + e.toString());
+		}
 	}
 	
 	public Trip getTrip(Intent i) 
@@ -42,6 +51,7 @@ public class ViewTripActivity extends Activity
 		}
 		catch(Exception e)
 		{
+			Log.i(TAG, "Exception in getTrip :" + e.toString());
 			Toast.makeText(this, "Please Create a trip!",Toast.LENGTH_LONG).show();
 		}
 		return trip;
@@ -51,6 +61,9 @@ public class ViewTripActivity extends Activity
 	{
 		try
 		{
+			TextView triprefid= (TextView) findViewById(R.id.viewtriprefid);
+			triprefid.setText(trip.getServerRefId()+"");
+			
 			TextView tripname= (TextView) findViewById(R.id.viewtripname);
 			tripname.setText(trip.getTripName());
 			
@@ -78,6 +91,7 @@ public class ViewTripActivity extends Activity
 		{
 			if(trip == null)
 			{
+				Log.i(TAG, "Exception in initView :" + e.toString());
 				Toast.makeText(this, "ERROR : Please Create a Trip First!",Toast.LENGTH_LONG).show();
 			}
 		}
@@ -168,6 +182,7 @@ public class ViewTripActivity extends Activity
 		}
 		catch(Exception e)
 		{
+			Log.i(TAG, "Exception in initFriendsView :" + e.toString());
 			Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
 		}
 	}
@@ -190,6 +205,7 @@ public class ViewTripActivity extends Activity
 		}
 		catch(Exception e)
 		{
+			Log.i(TAG, "Exception in deleteTrip :" + e.toString());
 			Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
 		}
 	}

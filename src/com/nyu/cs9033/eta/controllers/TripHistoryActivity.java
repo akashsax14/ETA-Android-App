@@ -9,6 +9,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -20,7 +21,7 @@ import com.nyu.cs9033.eta.R;
 public class TripHistoryActivity extends ListActivity
 {
 	TripDatabaseHelper tdh = new TripDatabaseHelper(this);
-	
+	private static final String TAG = "TRIPHISTORYACTIVITY";
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -39,6 +40,7 @@ public class TripHistoryActivity extends ListActivity
 		}
 		catch(Exception e)
 		{
+			Log.i(TAG, "Exception in onCreate :" + e.toString());
 			Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
 		}
 	}
@@ -66,6 +68,7 @@ public class TripHistoryActivity extends ListActivity
 		}
 		catch(Exception e)
 		{
+			Log.i(TAG, "Exception in onListItemClick :" + e.toString());
 			Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
 		}
     }
@@ -85,6 +88,7 @@ public class TripHistoryActivity extends ListActivity
 		}
 		catch(Exception e)
 		{
+			Log.i(TAG, "Exception in onActivityResult :" + e.toString());
 			Toast.makeText(this, "Exception : "+e.toString(),Toast.LENGTH_LONG).show();
 		}
     }

@@ -25,5 +25,8 @@
     <string name="btndelete">X</string>
     <string name="labeltripid">Trip Id</string>
     <string name="headhistory">Trip History</string>
+    <string name="labeltriprefid">Server Ref Id</string>
+    <string name="labeldistleft">Distance Left</string>
+    <string name="labeltimeleft">Time Left</string>
 
 </resources>

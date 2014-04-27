@@ -46,9 +46,8 @@ public class Person implements Parcelable
 	 * @param p The Parcel used to populate the
 	 * Model fields.
 	 */
-	public Person(Parcel p) {
-		
-		// TODO - fill in here
+	public Person(Parcel p) 
+	{
 		name = p.readString();
 		location = p.readString();
 		phone = p.readString();
@@ -60,26 +59,20 @@ public class Person implements Parcelable
 	 * @param args Add arbitrary number of arguments to
 	 * instantiate trip class.
 	 */
-	public Person(String name, String location, String phone) {
-		
-		// TODO - fill in here, please note you must have more arguments here
+	public Person(String name, String location, String phone) 
+	{
 		this.name = name;
 		this.location = location;
 		this.phone = phone;
 	}
 
 	@Override
-	public void writeToParcel(Parcel out, int arg1) {
-		
-		// TODO - fill in here 
+	public void writeToParcel(Parcel out, int arg1) 
+	{
 		out.writeString(name);
 		out.writeString(location);
 		out.writeString(phone);
 	}
-	
-	/**
-	 * Feel free to add additional functions as necessary below.
-	 */
 	
 	
 	/**

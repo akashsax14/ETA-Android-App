@@ -57,14 +57,10 @@
         <item name = "android:width">160dp</item>
     </style>
     
-    <style name="Layout">
-        <item name = "android:background">@drawable/bg</item>
-    	<item name = "android:clickable">true</item>
-    	<item name = "android:padding">10dp</item>
-    </style>
-    
     <style name="LayoutL">
         <item name = "android:background">@drawable/bg</item>
+	    <item name = "android:layout_width">match_parent</item>
+	    <item name = "android:layout_height">match_parent</item>
     	<item name = "android:clickable">true</item>
     	<item name = "android:padding">10dp</item>
     </style>
