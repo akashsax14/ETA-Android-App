@@ -1,6 +1,5 @@
 package com.nyu.cs9033.eta.controllers;
 
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,9 +44,9 @@ import android.widget.Toast;
 
 public class CreateTripActivity extends FragmentActivity implements AsyncResponse
 {
-	static Date date;
+	static Date date = new Date(System.currentTimeMillis());
 	int frnd_num = 0;
-	Trip t;
+	Trip t = null;
 	private long responseId = -1;
 	private static final int FRIENDNAMEIDPREFIX = 100000;
 	private static final int FRIENDLOCATIONIDPREFIX = 200000;
@@ -132,6 +131,8 @@ public class CreateTripActivity extends FragmentActivity implements AsyncRespons
 			{
 				case R.id.btncreatetrip:
 					t = createTrip();
+					if(t == null)
+						break;
 					if(isConnected())
 						sendToServer();
 					else
@@ -336,6 +337,7 @@ public class CreateTripActivity extends FragmentActivity implements AsyncRespons
 			EditText creatorW = (EditText) findViewById(R.id.editcreatorname);
 			String creator = creatorW.getText().toString();
 			
+			
 			ArrayList<Person> friends = new ArrayList<Person>();
 			for(int i = 1; i <= frnd_num; i++)
 			{
@@ -349,6 +351,12 @@ public class CreateTripActivity extends FragmentActivity implements AsyncRespons
 				String phone = personPhone.getText().toString();
 				
 				friends.add(new Person(name, location, phone));
+			}
+			
+			if(tripName.trim().isEmpty() || destName.trim().isEmpty() || creator.trim().isEmpty() || friends.isEmpty())
+			{
+				Toast.makeText(this, "Please enter all fields",Toast.LENGTH_LONG).show();
+				return null;
 			}
 			
 			Trip t = new Trip(0, 0, tripName, destName, creator, date, friends);

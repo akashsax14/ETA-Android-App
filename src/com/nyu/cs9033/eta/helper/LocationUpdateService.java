@@ -53,7 +53,7 @@ public class LocationUpdateService extends IntentService implements LocationList
 		try
 		{
 			LocationUpdateService listener = new LocationUpdateService();
-			lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, listener);
+			lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 15000, 100, listener);//15minutes or 100meters
 		}
 		catch(Exception e)
 		{
